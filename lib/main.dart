@@ -25,14 +25,19 @@ class MyApp extends StatelessWidget {
           body: Container(
             margin: EdgeInsets.all(8),
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 TextFormField(
-                  decoration:
-                      InputDecoration(hintText: "masukkan suhu celcius"),
+                  decoration: InputDecoration(
+                      hintText: "Masukkan suhu celcius",
+                      border: OutlineInputBorder(
+                          borderSide: BorderSide(),
+                          borderRadius: BorderRadius.circular(25))),
                   keyboardType: TextInputType.number,
                   inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                 ),
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     Column(
                       children: [
@@ -54,7 +59,14 @@ class MyApp extends StatelessWidget {
                     )
                   ],
                 ),
-                ElevatedButton(onPressed: () {}, child: Text("Hitung"))
+                ElevatedButton(
+                  onPressed: () {},
+                  child: Text("Hitung"),
+                  style: ElevatedButton.styleFrom(
+                      minimumSize: Size.fromHeight(40),
+                      backgroundColor: Colors.purple,
+                      foregroundColor: Colors.white),
+                ),
               ],
             ),
           ),
