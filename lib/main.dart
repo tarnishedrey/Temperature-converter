@@ -77,7 +77,7 @@ class _MyAppState extends State<MyApp> {
                       children: [
                         Text("Suhu dalam Kelvin"),
                         Text(
-                          "Nilai",
+                          kelvin.toString(),
                           style: TextStyle(fontSize: 24),
                         )
                       ],
@@ -86,7 +86,7 @@ class _MyAppState extends State<MyApp> {
                       children: [
                         Text("Suhu dalam Reamur"),
                         Text(
-                          "Nilai",
+                          reamur.toString(),
                           style: TextStyle(fontSize: 24),
                         )
                       ],
@@ -96,7 +96,7 @@ class _MyAppState extends State<MyApp> {
                 ElevatedButton(
                   onPressed: () {
                     if (formkey.currentState!.validate()) {
-                      print(input.text);
+                      hitung();
                     }
                   },
                   child: Text("Hitung"),
