@@ -5,13 +5,37 @@ void main() {
   runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  final formkey = GlobalKey<FormState>();
+  final _messangerkey = GlobalKey<ScaffoldMessengerState>();
+  TextEditingController input = TextEditingController();
+
+  double kelvin = 0;
+  double reamur = 0;
+  double fahrenheit = 0;
+
+  hitung() {
+    setState(() {
+      if (formkey.currentState!.validate()) {
+        reamur = 4 / 5 * double.parse(input.text);
+        kelvin = double.parse(input.text) + 273;
+        fahrenheit = (double.parse(input.text) * 9 / 5) + 32;
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        title: 'Flutter Demo',
+        scaffoldMessengerKey: _messangerkey,
+        title: 'Konverter suhu',
         theme: ThemeData(
           primarySwatch: Colors.blue,
           visualDensity: VisualDensity.adaptivePlatformDensity,
@@ -27,14 +51,24 @@ class MyApp extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                TextFormField(
-                  decoration: InputDecoration(
-                      hintText: "Masukkan suhu celcius",
-                      border: OutlineInputBorder(
-                          borderSide: BorderSide(),
-                          borderRadius: BorderRadius.circular(25))),
-                  keyboardType: TextInputType.number,
-                  inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                Form(
+                  key: formkey,
+                  child: TextFormField(
+                    controller: input,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        _messangerkey.currentState!.showSnackBar(
+                            const SnackBar(content: Text("Input Number")));
+                      }
+                    },
+                    decoration: InputDecoration(
+                        hintText: "Masukkan suhu celcius",
+                        border: OutlineInputBorder(
+                            borderSide: BorderSide(),
+                            borderRadius: BorderRadius.circular(25))),
+                    keyboardType: TextInputType.number,
+                    inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                  ),
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -60,7 +94,11 @@ class MyApp extends StatelessWidget {
                   ],
                 ),
                 ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    if (formkey.currentState!.validate()) {
+                      print(input.text);
+                    }
+                  },
                   child: Text("Hitung"),
                   style: ElevatedButton.styleFrom(
                       minimumSize: Size.fromHeight(40),
