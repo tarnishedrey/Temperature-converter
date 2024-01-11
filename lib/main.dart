@@ -34,6 +34,7 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+        debugShowCheckedModeBanner: false,
         scaffoldMessengerKey: _messangerkey,
         title: 'Konverter suhu',
         theme: ThemeData(
@@ -90,6 +91,15 @@ class _MyAppState extends State<MyApp> {
                           style: TextStyle(fontSize: 24),
                         )
                       ],
+                    )
+                  ],
+                ),
+                Column(
+                  children: [
+                    Text("Suhu dalam Fahrenheit"),
+                    Text(
+                      fahrenheit.toString(),
+                      style: TextStyle(fontSize: 24),
                     )
                   ],
                 ),
